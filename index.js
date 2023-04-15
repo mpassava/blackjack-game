@@ -25,6 +25,16 @@ function getRandomCard() {
     return randomCard;
 };
 
+const checkForAce = () => {
+    if (sum <= 21) return;
+    
+    const aceIdx = cards.indexOf(11);
+    if (aceIdx !== -1) {
+        cards[aceIdx] = 1;
+        sum = sum - 10;
+    }
+};
+
 function startGame() {
     isAlive = true;
     hasBlackjack = false;
@@ -32,6 +42,7 @@ function startGame() {
     let secondCard = getRandomCard();
     cards = [firstCard, secondCard];
     sum = firstCard + secondCard;
+    checkForAce();
     renderGame();
 };
 
@@ -59,6 +70,7 @@ function newCard() {
         let card = getRandomCard();
         sum += card;
         cards.push(card);
+        checkForAce();
         renderGame();
     }
 };
